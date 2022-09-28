@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const salt: number = Number(process.env.PASSWORD_SALT) || 12;
+const salt: number = Number(process.env.PASSWORD_SALT);
 
 export function hashedPassword(password: string){
     return hashSync(password, salt);
