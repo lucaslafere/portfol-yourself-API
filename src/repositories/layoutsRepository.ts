@@ -25,6 +25,6 @@ export async function insert(
 }
 
 export async function findByPortfolioId (portfolioId: number) {
-  const result = await prisma.layouts.findUnique({where: {portfolioId}})
+  const result = await prisma.layouts.findFirst({where: {portfolioId}})
   return result;
 }
