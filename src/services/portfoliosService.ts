@@ -11,7 +11,7 @@ export async function insert(
     throw { type: "conflict", message: "this user already owns a portfolio" };
   const result = await portfoliosRepository.insert({ ...portfolio, userId });
   const findNewPortfolio = await findByUserId(userId)
-  const insertDefaultLayout = await layoutsService.insert({portfolioId: findNewPortfolio.id}, userId)
+  const insertDefaultLayout = await layoutsService.insert({portfolioId: findNewPortfolio.id}, userId);
   return result;
 }
 export async function findAll() {
@@ -23,8 +23,9 @@ export async function findByUserId(userId: number) {
   return result;
 }
 export async function findByPortfolioId(id: number) {
-  const result = await portfoliosRepository.findByPortfolioId(id);
-  return result;
+  const portfolioDetails = await portfoliosRepository.findByPortfolioId(id);
+  const layoutDetails = await layoutsService.findByPortfolioId(id)
+  return [layoutDetails, portfolioDetails];
 }
 export async function deleteById(userId: number, portfolioId: number) {
   const findByPortfolioId = await portfoliosRepository.findByPortfolioId(

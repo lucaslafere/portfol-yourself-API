@@ -18,9 +18,8 @@ export async function getAllPortfolios(req: Request, res: Response) {
 }
 export async function getPortfolioById(req: Request, res: Response) {
   const { portfolioId } = req.params;
-  const portfolio = await portfoliosService.findByPortfolioId(+portfolioId);
-  // needs to send layout details through the response, based on portfolioId
-  return res.status(200).send(portfolio);
+  const layoutAndPortfolioDetails = await portfoliosService.findByPortfolioId(+portfolioId);
+  return res.status(200).send(layoutAndPortfolioDetails);
 }
 export async function deleteById(req: Request, res: Response) {
   const { portfolioId } = req.params;

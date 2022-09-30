@@ -1,8 +1,7 @@
 import * as layoutsRepository from "../repositories/layoutsRepository";
-import { LayoutsData } from "../types/layoutsType";
 import * as portfoliosRepository from "../repositories/portfoliosRepository";
 
-export async function edit(layout: LayoutsData, userId: number) {
+export async function edit(layout: {portfolioId, boxSize?, style?, isStore?}, userId: number) {
   const findByPortfolioId = await portfoliosRepository.findByPortfolioId(
     layout.portfolioId
   );
@@ -18,12 +17,17 @@ export async function edit(layout: LayoutsData, userId: number) {
   );
   return result;
 }
-export async function insert(layout: LayoutsData, userId: number) {
+export async function insert(layout: {portfolioId, boxSize?, style?, isStore?}, userId: number) {
   const result = await layoutsRepository.insert(
     layout.portfolioId,
     layout.boxSize,
     layout.style,
     layout.isStore
   );
+  return result;
+}
+
+export async function findByPortfolioId (portfolioId: number) {
+  const result = await layoutsRepository.findByPortfolioId(portfolioId);
   return result;
 }

@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "layouts" ALTER COLUMN "boxSize" DROP NOT NULL,
+ALTER COLUMN "style" DROP NOT NULL,
+ALTER COLUMN "isStore" DROP NOT NULL;

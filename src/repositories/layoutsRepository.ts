@@ -23,3 +23,8 @@ export async function insert(
   });
   return result;
 }
+
+export async function findByPortfolioId (portfolioId: number) {
+  const result = await prisma.layouts.findUnique({where: {portfolioId}})
+  return result;
+}
