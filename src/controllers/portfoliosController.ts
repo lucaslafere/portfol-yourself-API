@@ -18,10 +18,7 @@ export async function getAllPortfolios(req: Request, res: Response) {
 export async function getPortfolioById(req: Request, res: Response) {
   const { portfolioId } = req.params;
   const portfolio = await portfoliosService.findByPortfolioId(+portfolioId)
-  if (res.locals.token) {
-    const { userId } = res.locals;
-    return res.status(200).send(`Você tem um token e um userId: ${userId}. Seu portfolio passado pelo ID da URL é: ${portfolio}`);
-  }
+  // needs to send layout details through the response, based on portfolioId
   return res.status(200).send(portfolio);
 }
 export async function deleteById (req: Request, res: Response){

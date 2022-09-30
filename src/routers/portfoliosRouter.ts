@@ -1,8 +1,7 @@
 import { Router } from "express";
 import * as portfoliosController from "../controllers/portfoliosController";
 import {
-  validateToken,
-  allowNoToken,
+  validateToken
 } from "../middlewares/validateTokenMiddleware";
 
 const portfoliosRouter = Router();
@@ -15,7 +14,6 @@ portfoliosRouter.post(
 portfoliosRouter.get("/portfolios", portfoliosController.getAllPortfolios);
 portfoliosRouter.get(
   "/portfolios/:portfolioId",
-  allowNoToken,
   portfoliosController.getPortfolioById
 );
 portfoliosRouter.delete("/portfolios/:portfolioId", validateToken);
