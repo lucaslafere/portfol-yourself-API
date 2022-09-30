@@ -6,7 +6,7 @@ export async function findAll() {
   return result;
 }
 export async function findByUserId(userId: number) {
-  const result = await prisma.portfolios.findMany{ where: { userId } });
+  const result = await prisma.portfolios.findFirst({where: {userId }});
   return result;
 }
 export async function findByPortfolioId(id: number) {

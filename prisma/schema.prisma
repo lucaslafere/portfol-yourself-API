@@ -8,22 +8,22 @@ datasource db {
 }
 
 model users {
-  id         Int          @id @default(autoincrement())
-  email      String       @unique
+  id         Int         @id @default(autoincrement())
+  email      String      @unique
   password   String
-  admins     admins[]
-  portfolios portfolios[]
+  admins     admins?
+  portfolios portfolios?
 }
 
 model portfolios {
-  id      Int       @id @default(autoincrement())
-  title   String    @unique @db.VarChar(20)
-  userId  Int @unique
+  id      Int      @id @default(autoincrement())
+  title   String   @unique @db.VarChar(20)
+  userId  Int      @unique
   logo    String
-  user    users     @relation(fields: [userId], references: [id])
-  admins  admins[]
+  user    users    @relation(fields: [userId], references: [id])
+  admins  admins?
   items   items[]
-  layouts layouts[]
+  layouts layouts?
 }
 
 model items {
@@ -37,15 +37,15 @@ model items {
 
 model admins {
   id          Int        @id @default(autoincrement())
-  portfolioId Int @unique
-  userId      Int @unique
+  portfolioId Int        @unique
+  userId      Int        @unique
   portfolio   portfolios @relation(fields: [portfolioId], references: [id])
   user        users      @relation(fields: [userId], references: [id])
 }
 
 model layouts {
   id          Int          @id @default(autoincrement())
-  portfolioId Int @unique
+  portfolioId Int          @unique
   boxSize     boxSizeTypes @default(medium)
   style       styleTypes   @default(classic)
   isStore     Boolean      @default(false)

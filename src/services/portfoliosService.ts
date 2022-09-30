@@ -11,6 +11,7 @@ export async function insert(
     throw { type: "conflict", message: "this user already owns a portfolio" };
   const result = await portfoliosRepository.insert({ ...portfolio, userId });
   const findNewPortfolio = await findByUserId(userId)
+  console.log(findNewPortfolio)
   const insertDefaultLayout = await layoutsService.insert({portfolioId: findNewPortfolio.id}, userId);
   return result;
 }

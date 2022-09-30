@@ -12,19 +12,19 @@ export default function errorHandlerMiddleware(
   next: NextFunction
 ) {
     console.log(err);
-    if (err.type === 'NotFound'){
+    if (err.type === 'not-found'){
         return res.status(404).send(err.message);
     }
-    if (err.type === 'Conflict'){
+    if (err.type === 'conflict'){
         return res.status(409).send(err.message);
     }
-    if (err.type === 'Unprocessable'){
+    if (err.type === 'unprocessable'){
         return res.status(422).send(err.message);
     }
-    if (err.type === 'Generic'){
+    if (err.type === 'generic'){
         return res.status(400).send(err.message);
     }
-    if (err.type === 'Unauthorized'){
+    if (err.type === 'unauthorized'){
         return res.status(401).send(err.message);
     }
     if (err.type === 'wrong-body-format'){
