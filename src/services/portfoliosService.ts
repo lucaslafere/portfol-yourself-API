@@ -1,5 +1,6 @@
 import * as portfoliosRepository from "../repositories/portfoliosRepository";
 import { PortfolioData } from "../types/portfolioType";
+import * as layoutsService from "../services/layoutsService";
 
 export async function insert(
   portfolio: Omit<PortfolioData, "userId">,
@@ -9,6 +10,8 @@ export async function insert(
   if (findUserData)
     throw { type: "conflict", message: "this user already owns a portfolio" };
   const result = await portfoliosRepository.insert({ ...portfolio, userId });
+  const findNewPortfolio = await findByUserId(userId)
+  const insertDefaultLayout = await layoutsService.insert({portfolioId: findNewPortfolio.id}, userId)
   return result;
 }
 export async function findAll() {

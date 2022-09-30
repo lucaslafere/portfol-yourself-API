@@ -57,7 +57,7 @@ model layouts {
   id Int @id @default(autoincrement())
   portfolioId Int
   portfolio portfolios @relation(fields: [portfolioId], references: [id])
-  boxSize boxSizeTypes @default(medium)
-  style styleTypes @default(classic)
-  isStore Boolean @default(false)
+  boxSize boxSizeTypes? @default(medium)
+  style styleTypes? @default(classic)
+  isStore Boolean? @default(false)
 }

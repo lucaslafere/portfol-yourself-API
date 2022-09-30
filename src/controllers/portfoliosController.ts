@@ -3,12 +3,13 @@ import * as portfoliosService from "../services/portfoliosService";
 import { PortfolioData } from "../types/portfolioType";
 import { portfolioSchema } from "../schemas/portfoliosSchema";
 
+
 export async function createPortfolio(req: Request, res: Response) {
   const portfolio: Omit<PortfolioData, "userId"> = req.body;
   const { error } = portfolioSchema.validate(portfolio);
   if (error) throw { type: "wrong-body-format", message: error.message };
   const { userId } = res.locals;
-  await portfoliosService.insert(portfolio, userId);
+  await portfoliosService.insert(portfolio, +userId);
   return res.status(201).send("Created");
 }
 export async function getAllPortfolios(req: Request, res: Response) {
