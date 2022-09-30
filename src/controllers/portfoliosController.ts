@@ -1,18 +1,32 @@
 import { Request, Response } from "express";
 import * as portfoliosService from '../services/portfoliosService';
 import { PortfolioData } from "../types/portfolioType";
+import { portfolioSchema } from '../schemas/portfoliosSchema';
 
 export async function createPortfolio(req: Request, res: Response) {
+  const portfolio: Omit<PortfolioData, "userId"> = req.body;
+  const {error} = portfolioSchema.validate(portfolio);
+  if (error) throw { type: 'wrong-body-format', message: error.message}
+  const { userId } = res.locals;
+  await portfoliosService.insert(portfolio, userId);
     return res.status(201).send("Created");
 }
-export async function getPortfolios(req: Request, res: Response) {
+export async function getAllPortfolios(req: Request, res: Response) {
   const result = await portfoliosService.findAll();
   return res.status(200).send(result);
 }
 export async function getPortfolioById(req: Request, res: Response) {
+  const { portfolioId } = req.params;
+  const portfolio = await portfoliosService.findByPortfolioId(+portfolioId)
   if (res.locals.token) {
     const { userId } = res.locals;
-    return res.status(200).send(`Você tem um token e um userId: ${userId}`);
+    return res.status(200).send(`Você tem um token e um userId: ${userId}. Seu portfolio passado pelo ID da URL é: ${portfolio}`);
   }
-  return res.status(200).send("você não tem um token");
+  return res.status(200).send(portfolio);
+}
+export async function deleteById (req: Request, res: Response){
+  const { portfolioId } = req.params;
+  const {userId} = res.locals;
+  await portfoliosService.deleteById(+userId, +portfolioId);
+  return res.status(200).send("deleted")
 }
