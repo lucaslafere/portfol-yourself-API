@@ -24,9 +24,16 @@ export async function findByPortfolioId(id: number) {
   return result;
 }
 export async function deleteById(userId: number, portfolioId: number) {
-    const findByPortfolioId = await portfoliosRepository.findByPortfolioId(portfolioId)
-    if (!findByPortfolioId) throw {type: 'not-found', message: 'no portfolio found with this portfolioId'}
-    if (findByPortfolioId.userId !== userId) throw {type: "unauthorized", message: "you can't complete this request"}
+  const findByPortfolioId = await portfoliosRepository.findByPortfolioId(
+    portfolioId
+  );
+  if (!findByPortfolioId)
+    throw {
+      type: "not-found",
+      message: "no portfolio found with this portfolioId",
+    };
+  if (findByPortfolioId.userId !== userId)
+    throw { type: "unauthorized", message: "you can't complete this request" };
   const result = await portfoliosRepository.deleteById(portfolioId);
   return result;
 }

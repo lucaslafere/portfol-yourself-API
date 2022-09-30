@@ -1,8 +1,6 @@
 import { Router } from "express";
 import * as portfoliosController from "../controllers/portfoliosController";
-import {
-  validateToken
-} from "../middlewares/validateTokenMiddleware";
+import { validateToken } from "../middlewares/validateTokenMiddleware";
 
 const portfoliosRouter = Router();
 
