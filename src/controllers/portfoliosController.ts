@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
+import * as portfoliosService from '../services/portfoliosService';
+import { PortfolioData } from "../types/portfolioType";
 
 export async function createPortfolio(req: Request, res: Response) {
     return res.status(201).send("Created");
 }
 export async function getPortfolios(req: Request, res: Response) {
-  return res.sendStatus(200);
+  const result = await portfoliosService.findAll();
+  return res.status(200).send(result);
 }
 export async function getPortfolioById(req: Request, res: Response) {
   if (res.locals.token) {
