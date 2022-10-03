@@ -23,7 +23,7 @@ export async function getPortfolioById(req: Request, res: Response) {
   const portfolioDetails = await portfoliosService.findByPortfolioId(
     +portfolioId
   );
-  const layoutDetails = await portfoliosService.findByPortfolioId(+portfolioId)
+  const layoutDetails = await layoutsService.findByPortfolioId(+portfolioId)
   const itemDetails = await itemsService.findAllItemsFromPortfolio(+portfolioId)
   return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails, items: itemDetails});
 }
