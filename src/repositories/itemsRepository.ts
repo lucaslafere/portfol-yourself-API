@@ -1,5 +1,4 @@
 import { prisma } from "../database";
-import { ItemsData } from '../types/itemsType'
 
 export async function insert (
     portfolioId: number,
@@ -19,4 +18,8 @@ export async function findAll (portfolioId: number){
         where: {portfolioId}
     })
     return result;
+}
+export async function deleteItem (id: number){
+    const result = await prisma.items.delete({where: {id}});
+    return result
 }
