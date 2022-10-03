@@ -30,7 +30,7 @@ model items {
   id          Int        @id @default(autoincrement())
   title       String     @db.VarChar(20)
   imageUrl    String
-  description String?    @db.VarChar(30)
+  description String    @db.VarChar(30)
   portfolioId Int
   portfolio   portfolios @relation(fields: [portfolioId], references: [id])
   price Int?

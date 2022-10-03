@@ -4,7 +4,7 @@ export async function insert (
     portfolioId: number,
     title: string,
     imageUrl: string,
-    description?: string,
+    description: string,
     price?: number
 ) {
     const result = await prisma.items.create({

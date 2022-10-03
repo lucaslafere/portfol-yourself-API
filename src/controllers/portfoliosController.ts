@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import * as portfoliosService from "../services/portfoliosService";
 import { PortfolioData } from "../types/portfolioType";
 import { portfolioSchema } from "../schemas/portfoliosSchema";
+import * as layoutsService from '../services/layoutsService'
+
 
 export async function createPortfolio(req: Request, res: Response) {
   const portfolio: Omit<PortfolioData, "userId"> = req.body;
@@ -32,7 +34,6 @@ export async function deleteById(req: Request, res: Response) {
 export async function getLoggedUserPortfolio(req: Request, res: Response) {
   const { userId } = res.locals;
   const portfolioDetails = await portfoliosService.findByUserId(+userId);
-  const layoutDetails = await portfoliosService.findByPortfolioId
-  (portfolioDetails.id);
+  const layoutDetails = await layoutsService.findByPortfolioId(+portfolioDetails.id)
   return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
 }
