@@ -23,3 +23,7 @@ export async function deleteItem (id: number){
     const result = await prisma.items.delete({where: {id}});
     return result
 }
+export async function findById (id: number){
+    const result = await prisma.items.findUnique({where: {id}});
+    return result;
+}

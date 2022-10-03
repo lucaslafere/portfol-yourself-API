@@ -47,3 +47,10 @@ export async function getAllItemsFromPortfolio (req: Request, res: Response){
     const result = await itemsService.findAllItemsFromPortfolio(+portfolioDetails.id)
     return res.status(200).send(result)
 }
+export async function deleteItem(req: Request, res: Response){
+    const { userId } = res.locals;
+    const {itemId} = req.params;
+    const portfolioDetails = await portfoliosService.findByUserId(+userId);
+    const result = await itemsService.deleteItem(+portfolioDetails.id, +userId, +itemId)
+    return res.status(200).send("deleted")
+}
