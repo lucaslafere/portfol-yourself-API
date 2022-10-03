@@ -20,7 +20,7 @@ export async function getPortfolioById(req: Request, res: Response) {
   const portfolioDetails = await portfoliosService.findByPortfolioId(
     +portfolioId
   );
-  const layoutDetails = await portfoliosService.findLayoutDetails(+portfolioId)
+  const layoutDetails = await portfoliosService.findByPortfolioId(+portfolioId)
   return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
 }
 export async function deleteById(req: Request, res: Response) {
@@ -32,6 +32,7 @@ export async function deleteById(req: Request, res: Response) {
 export async function getLoggedUserPortfolio(req: Request, res: Response) {
   const { userId } = res.locals;
   const portfolioDetails = await portfoliosService.findByUserId(+userId);
-  const layoutDetails = await portfoliosService.findLayoutDetails(portfolioDetails.id);
+  const layoutDetails = await portfoliosService.findByPortfolioId
+  (portfolioDetails.id);
   return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
 }

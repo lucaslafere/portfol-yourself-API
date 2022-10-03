@@ -44,7 +44,4 @@ export async function deleteById(userId: number, portfolioId: number) {
   const result = await portfoliosRepository.deleteById(portfolioId);
   return result;
 }
-export async function findLayoutDetails(id: number) {
-  const layoutDetails = await layoutsService.findByPortfolioId(id);
-  return layoutDetails;
-}
+
