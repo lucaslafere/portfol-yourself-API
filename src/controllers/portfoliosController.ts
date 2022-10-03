@@ -3,6 +3,7 @@ import * as portfoliosService from "../services/portfoliosService";
 import { PortfolioData } from "../types/portfolioType";
 import { portfolioSchema } from "../schemas/portfoliosSchema";
 import * as layoutsService from '../services/layoutsService'
+import * as itemsService from '../services/itemsService'
 
 
 export async function createPortfolio(req: Request, res: Response) {
@@ -23,7 +24,8 @@ export async function getPortfolioById(req: Request, res: Response) {
     +portfolioId
   );
   const layoutDetails = await portfoliosService.findByPortfolioId(+portfolioId)
-  return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
+  const itemDetails = await itemsService.findAllItemsFromPortfolio(+portfolioId)
+  return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails, items: itemDetails});
 }
 export async function deleteById(req: Request, res: Response) {
   const { portfolioId } = req.params;
@@ -35,5 +37,7 @@ export async function getLoggedUserPortfolio(req: Request, res: Response) {
   const { userId } = res.locals;
   const portfolioDetails = await portfoliosService.findByUserId(+userId);
   const layoutDetails = await layoutsService.findByPortfolioId(+portfolioDetails.id)
-  return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
+  const itemDetails = await itemsService.findAllItemsFromPortfolio(+portfolioDetails.id)
+
+  return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails, items: itemDetails});
 }
