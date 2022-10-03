@@ -5,6 +5,7 @@ import { validateToken } from '../middlewares/validateTokenMiddleware';
 const itemsRouter = Router();
 
 itemsRouter.post('/items', validateToken, itemsController.createItem)
+itemsRouter.get('/items', validateToken, itemsController.getAllItemsFromPortfolio)
 
 
 
