@@ -10,9 +10,12 @@ export async function insert(
   if (findUserData)
     throw { type: "conflict", message: "this user already owns a portfolio" };
   const result = await portfoliosRepository.insert({ ...portfolio, userId });
-  const findNewPortfolio = await findByUserId(userId)
-  console.log(findNewPortfolio)
-  const insertDefaultLayout = await layoutsService.insert({portfolioId: findNewPortfolio.id}, userId);
+  const findNewPortfolio = await findByUserId(userId);
+  console.log(findNewPortfolio);
+  const insertDefaultLayout = await layoutsService.insert(
+    { portfolioId: findNewPortfolio.id },
+    userId
+  );
   return result;
 }
 export async function findAll() {
@@ -25,8 +28,7 @@ export async function findByUserId(userId: number) {
 }
 export async function findByPortfolioId(id: number) {
   const portfolioDetails = await portfoliosRepository.findByPortfolioId(id);
-  const layoutDetails = await layoutsService.findByPortfolioId(id)
-  return [layoutDetails, portfolioDetails];
+  return portfolioDetails;
 }
 export async function deleteById(userId: number, portfolioId: number) {
   const findByPortfolioId = await portfoliosRepository.findByPortfolioId(
@@ -41,4 +43,8 @@ export async function deleteById(userId: number, portfolioId: number) {
     throw { type: "unauthorized", message: "you can't complete this request" };
   const result = await portfoliosRepository.deleteById(portfolioId);
   return result;
+}
+export async function findLayoutDetails(id: number) {
+  const layoutDetails = await layoutsService.findByPortfolioId(id);
+  return layoutDetails;
 }

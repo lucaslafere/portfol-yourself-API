@@ -3,7 +3,6 @@ import * as portfoliosService from "../services/portfoliosService";
 import { PortfolioData } from "../types/portfolioType";
 import { portfolioSchema } from "../schemas/portfoliosSchema";
 
-
 export async function createPortfolio(req: Request, res: Response) {
   const portfolio: Omit<PortfolioData, "userId"> = req.body;
   const { error } = portfolioSchema.validate(portfolio);
@@ -18,12 +17,21 @@ export async function getAllPortfolios(req: Request, res: Response) {
 }
 export async function getPortfolioById(req: Request, res: Response) {
   const { portfolioId } = req.params;
-  const layoutAndPortfolioDetails = await portfoliosService.findByPortfolioId(+portfolioId);
-  return res.status(200).send(layoutAndPortfolioDetails);
+  const portfolioDetails = await portfoliosService.findByPortfolioId(
+    +portfolioId
+  );
+  const layoutDetails = await portfoliosService.findLayoutDetails(+portfolioId)
+  return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
 }
 export async function deleteById(req: Request, res: Response) {
   const { portfolioId } = req.params;
   const { userId } = res.locals;
   await portfoliosService.deleteById(+userId, +portfolioId);
   return res.status(200).send("deleted");
+}
+export async function getLoggedUserPortfolio(req: Request, res: Response) {
+  const { userId } = res.locals;
+  const portfolioDetails = await portfoliosService.findByUserId(+userId);
+  const layoutDetails = await portfoliosService.findLayoutDetails(portfolioDetails.id);
+  return res.status(200).json({portfolio: portfolioDetails, layout: layoutDetails});
 }

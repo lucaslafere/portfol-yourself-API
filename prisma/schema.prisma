@@ -33,6 +33,7 @@ model items {
   description String?    @db.VarChar(30)
   portfolioId Int
   portfolio   portfolios @relation(fields: [portfolioId], references: [id])
+  price Int?
 }
 
 model admins {

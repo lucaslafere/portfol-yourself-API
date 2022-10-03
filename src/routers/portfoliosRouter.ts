@@ -14,6 +14,15 @@ portfoliosRouter.get(
   "/portfolios/:portfolioId",
   portfoliosController.getPortfolioById
 );
-portfoliosRouter.delete("/portfolios/:portfolioId", validateToken);
+portfoliosRouter.get(
+  "/dashboard",
+  validateToken,
+  portfoliosController.getLoggedUserPortfolio
+);
+portfoliosRouter.delete(
+  "/portfolios/:portfolioId",
+  validateToken,
+  portfoliosController.deleteById
+);
 
 export default portfoliosRouter;
