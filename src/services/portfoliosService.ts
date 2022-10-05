@@ -13,7 +13,7 @@ export async function insert(
   const findNewPortfolio = await findByUserId(userId);
   console.log(findNewPortfolio);
   const insertDefaultLayout = await layoutsService.insert(
-    { portfolioId: findNewPortfolio.id, boxSize: "medium", style: 'classic', isStore: false },
+    { portfolioId: findNewPortfolio.id, boxSize: "medium", style: 'modern', isStore: false },
     userId
   );
   return result;
