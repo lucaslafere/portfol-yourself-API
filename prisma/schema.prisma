@@ -48,7 +48,7 @@ model layouts {
   id          Int          @id @default(autoincrement())
   portfolioId Int          @unique
   boxSize     boxSizeTypes @default(medium)
-  style       styleTypes   @default(classic)
+  style       styleTypes   @default(modern)
   isStore     Boolean      @default(false)
   portfolio   portfolios   @relation(fields: [portfolioId], references: [id])
 }
@@ -60,6 +60,7 @@ enum boxSizeTypes {
 }
 
 enum styleTypes {
+  cursive
   classic
   modern
 }
