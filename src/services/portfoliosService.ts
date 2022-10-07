@@ -24,6 +24,7 @@ export async function findAll() {
 }
 export async function findByUserId(userId: number) {
   const result = await portfoliosRepository.findByUserId(userId);
+  if (!result) throw {type: 'not-found', message: 'No portfolio found with this userId'}
   return result;
 }
 export async function findByPortfolioId(id: number) {
