@@ -64,4 +64,5 @@ enum styleTypes {
   classic
   modern
   altcursive
+  handwritten
 }
