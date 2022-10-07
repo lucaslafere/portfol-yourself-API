@@ -18,6 +18,8 @@ export async function insert(portfolio: PortfolioData) {
   return result;
 }
 export async function deleteById(id: number) {
+  const deleteChildLayout = await prisma.layouts.delete({where: {id}})
+  const deleteChildItems = await prisma.items.deleteMany({where: {id}})
   const result = await prisma.portfolios.delete({ where: { id } });
   return result;
 }
