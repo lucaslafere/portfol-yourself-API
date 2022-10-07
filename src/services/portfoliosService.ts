@@ -20,6 +20,7 @@ export async function insert(
 }
 export async function findAll() {
   const result = await portfoliosRepository.findAll();
+  if (!result) throw {type: 'not-found', message: 'no portfolios created yet'}
   return result;
 }
 export async function findByUserId(userId: number) {
