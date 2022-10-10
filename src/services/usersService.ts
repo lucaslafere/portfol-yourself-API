@@ -6,7 +6,7 @@ import { UserData } from "../types/userType";
 export async function createUser(UserData: UserData) {
   const findExistingUser = await usersRepository.findByEmail(UserData.email);
   if (findExistingUser)
-    throw { type: "Conflict", message: "This email is in use" };
+    throw { type: "conflict", message: "This email is in use" };
 
   await usersRepository.insert({
     email: UserData.email,
@@ -23,7 +23,7 @@ export async function login(UserData: UserData) {
       findExistingUser.password
     )
   )
-    throw { type: "Unauthorized", message: "Unauthorized" };
+    throw { type: "unauthorized", message: "Unauthorized" };
   const token = manipulateToken.generateToken(findExistingUser);
   return token;
 }
