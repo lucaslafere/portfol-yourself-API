@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "test:int": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest -- -i --testPathPattern=tests/int",
     "test:unit": "dotenv -e .env.test jest -- -i --coverage --testPathPattern=tests/unit",
     "dev": "dotenv -e .env.test nodemon src/server.ts"
