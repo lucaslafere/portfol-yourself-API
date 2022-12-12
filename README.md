@@ -45,14 +45,13 @@ First, clone this repository in your machine:
 ```
 git clone https://github.com/lucaslafere/portfol-yourself-API
 ```
+After that, you will need to create a .env file that follows the .env.example in the project's root folder (the same folder as the .env.example)
 
 Then, inside the cloned folder, run the following command to install the dependencies:
 
 ```
 npm install
 ```
-
-After that, you will need to create a .env file that follows the .env.example in the project's root folder (the same folder as the .env.example)
 
 When finished, just start the server, using the following command:
 ```
